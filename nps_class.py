@@ -7,7 +7,7 @@ game_folder = os.path.dirname(__file__)
 img_folder = os.path.join(game_folder, 'images')
 player_img = pygame.image.load(os.path.join(img_folder, 'player.png'))
 
-class Player(pygame.sprite.Sprite):
+class Nps(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
         self.image = player_img

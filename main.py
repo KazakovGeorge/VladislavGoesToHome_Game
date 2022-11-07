@@ -31,8 +31,10 @@ while running:
 
     # Ввод процесса (события)
     running = events.check_all(running) # Запуск функции проверки событий и возвращение закрытия игры, если требуется
+    player.chek_collizions(npsList)
 
     # Обновление
+    all_sprites.add(npsList)
     all_sprites.update()
 
     # Визуализация (сборка)
@@ -41,3 +43,5 @@ while running:
 
     # Переворот экрана
     pygame.display.flip()
+
+    print(f"{clock.tick()} | {len(npsList)}")

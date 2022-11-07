@@ -1,6 +1,8 @@
+import datetime
+
 import pygame
 import random
-import os
+import os, math
 import config, sounds
 
 game_folder = os.path.dirname(__file__)
@@ -39,4 +41,11 @@ class Player(pygame.sprite.Sprite):
 
     def update(self):
         self.rect.x += self.speed
+        self.rect.y = config.HEIGHT * 0.75
         self.walk_check()
+
+    def chek_collizions(self, list : list):
+        for nps in list:
+            if self.rect.center == nps.rect.center:
+                self.health_update(-20)
+                sounds.damage1.play()

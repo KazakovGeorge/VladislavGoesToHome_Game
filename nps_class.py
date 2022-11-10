@@ -19,8 +19,20 @@ class Nps(pygame.sprite.Sprite):
         self.health = 100
 
 
+    def update(self):
+        self.rect.y += self.speed
+        self.walk_check()
+
+
     def health_update(self, heal):
-        self.health += heal
+        if self.health < 1:
+            for i in range(len(objects.npsList)):
+                if objects.npsList[i] == self:
+                    objects.npsList[i].kill()
+                    del objects.npsList[i]
+                    del self
+        else:
+            self.health += heal
 
 
     def walk_check(self):
@@ -33,9 +45,5 @@ class Nps(pygame.sprite.Sprite):
         """if self.rect.top < (-500):
             self.kill()
             objects.create_nps(objects.npsList)"""
-
-    def update(self):
-        self.rect.y += self.speed
-        self.walk_check()
 
 

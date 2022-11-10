@@ -1,5 +1,5 @@
-WIDTH = 1500
-HEIGHT = 1300
+WIDTH = 1200
+HEIGHT = 700
 FPS = 60
 
 # Цвета (R, G, B)

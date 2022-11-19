@@ -1,9 +1,8 @@
-import datetime
-
 import pygame
 import random
-import os, math
+import os
 import config, sounds
+import objects
 
 game_folder = os.path.dirname(__file__)
 img_folder = os.path.join(game_folder, 'images')
@@ -22,14 +21,15 @@ class Player(pygame.sprite.Sprite):
 
     def update(self):
         self.rect.x += self.speed
-        #self.rect.y = config.HEIGHT * 0.75
+
         self.walk_check()
+        self.chek_collizions()
 
 
     def health_update(self, heal):
         self.health += heal
-        sounds.damage1.play()
-        sounds.damage2.play()
+        sounds.playerDamage1.play()
+        sounds.playerDamage2.play()
 
 
     def walk_check(self):
@@ -37,19 +37,29 @@ class Player(pygame.sprite.Sprite):
             self.rect.x -= 50
             self.speed = self.speed * (-0.5)
             self.health_update(-10)
-            print(pygame.time.get_ticks() / 1000, ' \\ Health: ', self.health)
 
         if self.rect.left < 0:
             self.rect.x += 50
             self.speed = self.speed * (-0.5)
             self.health_update(-10)
-            print(pygame.time.get_ticks() / 1000, ' \\ Health: ', self.health)
 
 
-    def chek_collizions(self, list : list):
+    def chek_collizions(self):
+        for nps in objects.all_sprites:
+            if nps.__str__() != '<Player Sprite(in 1 groups)>':
+
+                if nps.__str__() == '<Nps Sprite(in 1 groups)>' and self.rect.colliderect(nps.rect) == True:
+                    nps.health_update(-20)
+                    objects.player.health_update(-10)
+                    nps.rect.y += -100
+                    sounds.playerDamage1.play()
+
+
+
+    """def chek_collizions(self, list : list):
         for nps in list:
             if self.rect.colliderect(nps.rect):
                 nps.health_update(-20)
                 nps.rect.y += -100
                 print("COLIDE")
-                sounds.damage1.play()
+                sounds.damage1.play()"""

@@ -1,5 +1,7 @@
+import time
+
 import pygame
-from objects import player, npsList, ui
+from objects import player, ui
 import os
 import config, events
 from objects import all_sprites
@@ -17,28 +19,25 @@ screen = pygame.display.set_mode((config.WIDTH, config.HEIGHT))
 pygame.display.set_caption("VIIBLOCK Story")
 clock = pygame.time.Clock()
 
-#all_sprites = pygame.sprite.Group() # Группировка всех спрайтов
-
 # Создание объектов мобов
 
 all_sprites.add(player)   # load thePlayer sprite
-all_sprites.add(npsList)
 all_sprites.add(ui) # load nps sprites
 
 # Рабочий цикл
 running = True  # True если игра работает
+
 
 while running:
     clock.tick(config.FPS)
 
     # Ввод процесса (события)
     running = events.check_all(running) # Запуск функции проверки событий и возвращение закрытия игры, если требуется
-    player.chek_collizions(npsList)
 
     # Обновление
     ui.update_health(player.health)
 
-    all_sprites.add(npsList)
+    #all_sprites.add(npsList)
     all_sprites.update()
 
     # Визуализация (сборка)
@@ -48,4 +47,4 @@ while running:
     # Переворот экрана
     pygame.display.flip()
 
-    print(f"{clock.tick()} | {len(npsList)}")
+#print(f"{clock.tick()} | {len(npsList)}")

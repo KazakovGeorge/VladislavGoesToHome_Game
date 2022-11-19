@@ -1,7 +1,7 @@
-import pygame
+import pygame, random
+import nps_class, objects, sounds
+from objects import player
 
-import objects
-from objects import player, npsList
 
 def check_all(running : bool):
     for event in pygame.event.get():
@@ -17,13 +17,21 @@ def check_all(running : bool):
             elif event.key == pygame.K_RIGHT:
                 player.speed += 5
 
+            elif event.key == pygame.K_SPACE:
+                sounds.pygame.mixer.Sound(f'sounds/player/toss_{random.randint(1, 2)}.wav').play()
+                objects.all_sprites.add(nps_class.Bullet())
+
             elif event.key == pygame.K_n:
-                objects.create_nps(npsList)
+                objects.all_sprites.add(nps_class.Nps())
+
             elif event.key == pygame.K_p:
                 if pygame.mixer.music.get_busy() == True:
                     pygame.mixer.music.pause()
                 else:
                     pygame.mixer.music.unpause()
+
+            elif event.key == pygame.K_o:
+                print(f'{len(objects.all_sprites.sprites())} : {objects.all_sprites.sprites()}')
 
 
     return running

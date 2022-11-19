@@ -25,4 +25,3 @@ class UI(pygame.sprite.Sprite):
 
     def update_health(self, newLevel : int):
         self.level = (newLevel / 10) - (newLevel % 10)
-        print(self.level)
